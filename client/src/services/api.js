@@ -2,13 +2,6 @@ import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL || '';
 
-const API = axios.create({
-  baseURL: `${API_URL}/api`,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
 /**
  * Call backend to analyze a company
  * @param {string} companyName Ticker or company name
@@ -16,7 +9,9 @@ const API = axios.create({
  */
 export const analyzeCompanyApi = async (companyName) => {
   try {
-    const response = await API.post('/analyze', { company: companyName });
+    const response = await axios.post(`${API_URL}/api/analyze`, { company: companyName }, {
+      headers: { 'Content-Type': 'application/json' }
+    });
     return response.data;
   } catch (error) {
     console.error("API error in analyzeCompanyApi:", error);
@@ -32,7 +27,9 @@ export const analyzeCompanyApi = async (companyName) => {
  */
 export const compareCompaniesApi = async (companies) => {
   try {
-    const response = await API.post('/compare', { companies });
+    const response = await axios.post(`${API_URL}/api/compare`, { companies }, {
+      headers: { 'Content-Type': 'application/json' }
+    });
     return response.data;
   } catch (error) {
     console.error("API error in compareCompaniesApi:", error);
