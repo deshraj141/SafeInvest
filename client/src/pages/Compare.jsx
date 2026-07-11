@@ -154,9 +154,17 @@ export default function Compare() {
           </div>
 
           {errorMsg && (
-            <div className="px-4 py-3 bg-red-500/10 border border-red-500/30 rounded-xl text-brand-danger text-xs font-semibold flex items-center gap-2">
-              <FiAlertTriangle size={16} />
-              <span>{errorMsg}</span>
+            <div className="px-4 py-3 bg-red-500/10 border border-red-500/20 rounded-xl text-brand-danger text-xs font-semibold flex items-center justify-between gap-4 shadow-sm animate-fade-in">
+              <div className="flex items-center gap-2">
+                <FiAlertTriangle size={16} className="shrink-0" />
+                <span>{errorMsg}</span>
+              </div>
+              <button 
+                onClick={() => triggerComparison()}
+                className="px-3 py-1 bg-brand-danger text-white rounded-lg text-[10px] font-bold hover:bg-red-600 transition-colors shrink-0"
+              >
+                Retry
+              </button>
             </div>
           )}
         </div>
@@ -190,7 +198,7 @@ export default function Compare() {
 
       {/* ================= LOADING MATRIX ================= */}
       {isLoading && (
-        <div className="bg-white dark:bg-[#111827] border border-light-border dark:border-slate-800 rounded-2xl p-16 flex flex-col items-center justify-center space-y-6 min-h-[400px]">
+        <div className="bg-white dark:bg-[#111827] border border-light-border dark:border-slate-800 rounded-2xl p-16 flex flex-col items-center justify-center space-y-6 shadow-sm min-h-[450px]">
           <div className="relative flex items-center justify-center">
             <div className="w-16 h-16 border-4 border-brand-primary/20 border-t-brand-primary rounded-full animate-spin"></div>
             <FiLayers className="absolute text-brand-primary animate-pulse" size={24} />
@@ -202,6 +210,17 @@ export default function Compare() {
             <p className="text-xs text-dark-secondary dark:text-slate-400">
               Gemini is evaluating comparative metrics, growth opportunities, and final winners.
             </p>
+          </div>
+
+          {/* Skeleton Loader Mock */}
+          <div className="w-full max-w-lg space-y-4 opacity-40 animate-pulse pt-4 border-t border-light-border dark:border-slate-800/60">
+            <div className="h-5 bg-slate-200 dark:bg-slate-800 rounded-md w-2/3 mx-auto"></div>
+            <div className="h-3 bg-slate-200 dark:bg-slate-800 rounded-md w-1/3 mx-auto"></div>
+            <div className="space-y-2 pt-2">
+              <div className="h-2.5 bg-slate-100 dark:bg-slate-900/50 rounded-md w-full"></div>
+              <div className="h-2.5 bg-slate-100 dark:bg-slate-900/50 rounded-md w-11/12"></div>
+              <div className="h-2.5 bg-slate-100 dark:bg-slate-900/50 rounded-md w-4/5"></div>
+            </div>
           </div>
         </div>
       )}

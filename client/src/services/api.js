@@ -1,10 +1,9 @@
 import axios from 'axios';
 
-// Create standard axios instance.
-// Using relative URL '/api' relies on Vite's local dev server proxy,
-// and in production routes relative API calls properly.
+const API_URL = import.meta.env.VITE_API_URL || '';
+
 const API = axios.create({
-  baseURL: '/api',
+  baseURL: `${API_URL}/api`,
   headers: {
     'Content-Type': 'application/json',
   },

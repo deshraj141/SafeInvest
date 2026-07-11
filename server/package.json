@@ -1,7 +1,7 @@
 {
-  "name": "invst-ai-server",
+  "name": "safeinvest-server",
   "version": "1.0.0",
-  "description": "Backend server for INVST.AI investment research dashboard",
+  "description": "Backend server for SafeInvest.ai investment research dashboard",
   "main": "server.js",
   "type": "module",
   "scripts": {

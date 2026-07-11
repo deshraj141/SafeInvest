@@ -1,6 +1,6 @@
-# INVST.AI — AI-Powered Investment Research Dashboard
+# SafeInvest.ai — AI-Powered Investment Research Dashboard
 
-INVST.AI is a complete, production-ready full-stack AI Investment Research Dashboard built using the MERN stack (without database dependencies, relying on localStorage for state persistence) and integrating Google Gemini API for deep business insights.
+SafeInvest.ai is a complete, production-ready full-stack AI Investment Research Dashboard built using the MERN stack (without database dependencies, relying on localStorage for state persistence) and integrating Google Gemini API for deep business insights.
 
 The user interface follows premium design systems (inspired by Linear, Vercel, and TradingView) with high-fidelity components, robust error checking, and seamless dark/light mode class transitions.
 
@@ -90,7 +90,7 @@ Vite will serve the frontend at `http://localhost:5173`. Any API queries sent to
 
 ## 🤖 How Gemini API Works
 
-INVST.AI communicates with the Gemini model `gemini-1.5-flash` using standard HTTP POST requests. 
+SafeInvest.ai communicates with the Gemini model `gemini-1.5-flash` using standard HTTP POST requests. 
 
 1. **System Instruction Enforcement**: System prompts in `server/utils/prompts.js` specify strict JSON schemas for the response format.
 2. **Structured JSON Output**: The backend configures `generationConfig: { responseMimeType: "application/json" }` to guarantee Gemini returns structured, valid, parseable JSON text.

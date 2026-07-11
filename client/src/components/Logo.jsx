@@ -16,9 +16,9 @@ export default function Logo({ name, domain, size = "md" }) {
 
   useEffect(() => {
     if (stage === 0 && domain) {
-      setImgSrc(`https://logo.clearbit.com/${domain}`);
+      setImgSrc(`https://www.google.com/s2/favicons?domain=${domain}&sz=128`);
     } else if (stage === 1 && domain) {
-      setImgSrc(`https://www.google.com/s2/favicons?sz=128&domain=${domain}`);
+      setImgSrc(`https://icon.horse/icon/${domain}`);
     }
   }, [stage, domain]);
 

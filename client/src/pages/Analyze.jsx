@@ -3,7 +3,8 @@ import { useSearchParams } from 'react-router-dom';
 import { 
   FiAlertTriangle, FiCheckCircle, FiXCircle, FiTrendingUp, FiCpu, 
   FiFileText, FiMap, FiAward, FiGlobe, FiPlusCircle, FiList, FiClock,
-  FiLayers, FiDollarSign, FiShield, FiArrowRight, FiInfo, FiActivity
+  FiLayers, FiDollarSign, FiShield, FiArrowRight, FiInfo, FiActivity,
+  FiSearch
 } from 'react-icons/fi';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { analyzeCompanyApi } from '../services/api';
@@ -49,6 +50,7 @@ export default function Analyze() {
   const [isLoading, setIsLoading] = useState(false);
   const [loadingMessageIdx, setLoadingMessageIdx] = useState(0);
   const [errorMsg, setErrorMsg] = useState("");
+  const [lastSearch, setLastSearch] = useState("");
   
   const loadingInterval = useRef(null);
 
@@ -98,6 +100,7 @@ export default function Analyze() {
 
     setIsLoading(true);
     setErrorMsg("");
+    setLastSearch(companyName);
 
     try {
       const result = await analyzeCompanyApi(companyName);
@@ -185,9 +188,19 @@ export default function Analyze() {
         <SearchBar onSearch={handleSearch} isLoading={isLoading} />
 
         {errorMsg && (
-          <div className="max-w-2xl mx-auto px-4 py-3 bg-red-500/10 border border-red-500/30 rounded-xl text-brand-danger text-xs font-semibold flex items-center gap-2">
-            <FiAlertTriangle size={16} />
-            <span>{errorMsg}</span>
+          <div className="max-w-2xl mx-auto px-4 py-3 bg-red-500/10 border border-red-500/20 rounded-xl text-brand-danger text-xs font-semibold flex items-center justify-between gap-4 shadow-sm">
+            <div className="flex items-center gap-2">
+              <FiAlertTriangle size={16} className="shrink-0" />
+              <span>{errorMsg}</span>
+            </div>
+            {lastSearch && (
+              <button 
+                onClick={() => handleSearch(lastSearch)}
+                className="px-3 py-1 bg-brand-danger text-white rounded-lg text-[10px] font-bold hover:bg-red-600 transition-colors"
+              >
+                Retry
+              </button>
+            )}
           </div>
         )}
       </div>
@@ -203,7 +216,7 @@ export default function Analyze() {
 
       {/* ================= LOADING SCREEN ================= */}
       {isLoading && (
-        <div className="bg-white dark:bg-[#111827] border border-light-border dark:border-slate-800/80 rounded-2xl p-16 flex flex-col items-center justify-center space-y-6 shadow-sm min-h-[400px]">
+        <div className="bg-white dark:bg-[#111827] border border-light-border dark:border-slate-800/80 rounded-2xl p-16 flex flex-col items-center justify-center space-y-6 shadow-sm min-h-[450px]">
           <div className="relative flex items-center justify-center">
             <div className="w-16 h-16 border-4 border-brand-primary/20 border-t-brand-primary rounded-full animate-spin"></div>
             <FiCpu className="absolute text-brand-primary animate-pulse" size={24} />
@@ -215,6 +228,17 @@ export default function Analyze() {
             <p className="text-xs text-dark-secondary dark:text-[#94A3B8] font-medium">
               Querying Gemini API. This process takes 3-5 seconds.
             </p>
+          </div>
+
+          {/* Skeleton Loader Mock */}
+          <div className="w-full max-w-lg space-y-4 opacity-40 animate-pulse pt-4 border-t border-light-border dark:border-slate-800/60">
+            <div className="h-5 bg-slate-200 dark:bg-slate-800 rounded-md w-2/3 mx-auto"></div>
+            <div className="h-3 bg-slate-200 dark:bg-slate-800 rounded-md w-1/3 mx-auto"></div>
+            <div className="space-y-2 pt-2">
+              <div className="h-2.5 bg-slate-100 dark:bg-slate-900/50 rounded-md w-full"></div>
+              <div className="h-2.5 bg-slate-100 dark:bg-slate-900/50 rounded-md w-11/12"></div>
+              <div className="h-2.5 bg-slate-100 dark:bg-slate-900/50 rounded-md w-4/5"></div>
+            </div>
           </div>
         </div>
       )}
